@@ -1,0 +1,10 @@
+.redBackground {
+  background-color: green;
+}
+.error {
+  background-color: cyan;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
