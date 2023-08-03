@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
+// const requestLogger = 
+
 let notes = [
   {
     id: 1,
@@ -39,9 +41,15 @@ app.delete("/api/notes/:id", (request, response) => {
 });
 app.post('/api/notes', (request, response) => {
     const myNewPost = request.body;
-  console.log(myNewPost)
-// response.json(note)
+    myNewPost.id = notes.length + 1;
+    notes.push(myNewPost);
+    response.status(201).json(myNewPost)
 })
+app.use((request, response, next) => {
+  response.status(404).send("no url available")
+  next()
+}
+)
 const PORT = 3001
 app.listen(PORT)
 console.log(`Server running on port ${PORT}`)
