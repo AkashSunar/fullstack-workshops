@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 app.use(express.json());
+app.use(cors());
+app.use(express.static("dist"))
 
 // const requestLogger = 
 
@@ -21,9 +24,9 @@ let notes = [
     important: true
   }
 ]
-app.get("/",(request, response) => {
-    response.send("<h1>hello akash</h1>");
-})
+// app.get("/",(request, response) => {
+//     response.send("<h1>hello akash</h1>");
+// })
 
 
 app.get("/api/notes",(request, response) => {
@@ -45,11 +48,31 @@ app.post('/api/notes', (request, response) => {
     notes.push(myNewPost);
     response.status(201).json(myNewPost)
 })
+
+app.put("/api/notes/:id", (request, response) => {
+  const myId = Number(request.params.id);
+  const updatedNOte = request.body;
+  let noteFound = false;
+  notes = notes.map((note) => {
+    if (note.id !== myId) return note;
+    else {
+      noteFound = true;
+      return updatedNOte;
+    }
+  })
+  
+  if (noteFound) {
+    response.status(202).json(updatedNOte)
+  } else {
+    response.status(404).send(`there is no note in ${myId}`)
+  }
+});
+
 app.use((request, response, next) => {
   response.status(404).send("no url available")
   next()
 }
 )
-const PORT = 3001
+const PORT = process.env.PORT?process.env.PORT: 3001
 app.listen(PORT)
 console.log(`Server running on port ${PORT}`)

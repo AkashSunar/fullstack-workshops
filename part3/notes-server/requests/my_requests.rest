@@ -1,5 +1,6 @@
-DELETE http://localhost:3001/api/notes/2
-
+DELETE http://localhost:3001/api/notes/5
+###
+GET http://localhost:3001/api/notes/
 ###
 POST http://localhost:3001/api/notes/
 content-type: application/json
@@ -9,4 +10,12 @@ content-type: application/json
     "important":true 
 }
 
+###
+PUT http://localhost:3001/api/notes/10
+content-type: application/json
+
+{
+    "content": "Simulation and modelling",
+    "important":false 
+}
 
