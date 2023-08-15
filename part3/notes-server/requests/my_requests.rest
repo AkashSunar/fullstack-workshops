@@ -5,17 +5,17 @@ GET http://localhost:3001/api/notes/
 POST http://localhost:3001/api/notes/
 content-type: application/json
 
-{
-    "content": "Digital",
+{ 
+    "content": "Artificial intiligence",
     "important":true 
 }
 
 ###
-PUT http://localhost:3001/api/notes/10
+PUT http://localhost:3001/api/notes/64d2e103d5b1bbb411081c4c
 content-type: application/json
 
 {
-    "content": "Simulation and modelling",
+    "content": "new note",
     "important":false 
 }
 
