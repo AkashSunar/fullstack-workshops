@@ -1,8 +1,11 @@
 const app = require("express").Router()
-const Note=require("../models/note")
-app.get("/", (request, response) => {
-  Note.find({}).then((result)=>{response.json(result)})
-    })
+const Note = require("../models/note")
+
+app.get("/", async (request, response) => {
+  let result = await Note.find({});
+  response.json(result)
+})
+    
 app.get("/:id", (request, response,next) => {
   Note.findById(request.params.id).then((result) => {
     result ? response.json(result) : response.status(404).send(`there is no note in ${request.params.id}`)
@@ -26,7 +29,7 @@ app.post('/', (request, response,next) => {
   })
 
   note.save().then(savedNote => {
-    response.json(savedNote)
+    response.status(201).json(savedNote)
   }).catch((error=>{next(error)}))
 })
 app.put('/:id', (request, response, next) => {
