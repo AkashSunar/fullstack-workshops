@@ -6,8 +6,9 @@ POST http://localhost:3001/api/notes/
 content-type: application/json
 
 { 
-    "content": "data base management system",
-    "important":true 
+    "content": "discrete structure by akash",
+    "important":true,
+    "userId":"64e8702d64fa84745a0cdb8a"
 }
 
 ###
@@ -15,7 +16,22 @@ PUT http://localhost:3001/api/notes/64d2e103d5b1bbb411081c4c
 content-type: application/json
 
 {
-    "content": "new note",
-    "important":false 
+    "content": "new note akash2",
+    "important":false,
+    
 }
+
+###
+POST http://localhost:3001/api/users/
+Content-Type: application/json
+
+{
+    "username":"akash2",
+    "password":"password123",
+    "name":"akash"
+
+}
+
+###
+GET http://localhost:3001/api/users/
 

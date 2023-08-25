@@ -1,8 +1,9 @@
 const app = require("express").Router()
 const Note = require("../models/note")
+const User=require("../models/user")
 
 app.get("/", async (request, response) => {
-  let result = await Note.find({});
+  let result = await Note.find({}).populate("user",{username:1,name:1});
   response.json(result)
 })
     
@@ -21,16 +22,20 @@ app.delete('/:id', (request, response, next) => {
     })
     .catch(error => next(error))
 })
-app.post('/', (request, response,next) => {
+app.post('/', async (request, response,next) => {
   const body = request.body
+  const user= await User.findById(body.userId)
   const note = new Note({
     content: body.content,
     important: body.important || false,
+    user:user.id,
   })
-
-  note.save().then(savedNote => {
+  try {
+     const savedNote=  await note.save()
     response.status(201).json(savedNote)
-  }).catch((error=>{next(error)}))
+    user.notes = user.notes.concat(savedNote.id)
+    await user.save();
+  } catch (e) { next(e) }
 })
 app.put('/:id', (request, response, next) => {
   const body = request.body
