@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 import Note from "./components/Note";
-import axios from "axios";
+// import axios from "axios";
 import noteServices from "./services/note";
+import loginServices from "./services/login";
 import Notification from "./components/Notification";
 
-const App = (props) => {
+const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
   const [notification, setNotification] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     console.log("hello");
@@ -21,6 +25,11 @@ const App = (props) => {
       //2. put the data into notes state
       setNotes(myData);
     });
+    //lets get user from local storage if available
+    let myUser = window.localStorage.getItem("noteUser")
+    if (myUser) {
+      setUser(JSON.parse(myUser))
+    }
 
     console.log(myAxiosPromise);
   }, []);
@@ -34,13 +43,24 @@ const App = (props) => {
       id: notes.length + 1,
       important: Math.random() > 0.5,
     };
-    let postPromise = noteServices.create(myNote);
-    postPromise.then((result) => {
-      setNotes(notes.concat(result.data));
-    });
-    setNewNote("");
-
-    console.log("form has been submitted");
+    let postPromise = noteServices.create(myNote, user.token);
+    postPromise
+      .then((result) => {
+        console.log(result.data);
+        setNotes(notes.concat(result.data));
+        setNewNote("");
+      })
+      .catch((error) => {
+        console.log(error.response.data.error);
+        setNotification(error.response.data.error);
+        setTimeout(() => {
+          setNotification("");
+        }, 2000);
+        if (error.response.data.error === "token expired") {
+          setUser(null);
+          window.localStorage.removeItem("noteUser")
+        }
+      });
   };
 
   const handleChange = (event) => {
@@ -70,7 +90,7 @@ const App = (props) => {
         console.log("some error has been occured");
         console.log(error);
         if (error.response.status === 404) {
-          console.log("this means the id doesnot exist in the server");
+          // console.log("this means the id doesnot exist in the server");
           setNotification(
             `sorry the note "${currentNote.content}"does not exist`
           );
@@ -83,13 +103,65 @@ const App = (props) => {
         }
       });
   };
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    console.log("logging in with", username, password);
+    try {
+      let loggedinUser = await loginServices.login({ username, password });
+      setUser(loggedinUser);
+      window.localStorage.setItem("noteUser",JSON.stringify(loggedinUser))
+    } catch (error) {
+      setNotification(error.response.data.error);
+      setTimeout(() => {
+        setNotification("");
+      }, 2000);
+    }
+  };
+
   const myStyle = { fontSize: "60px" };
+
+  const loginForm = () => {
+    return (
+      <form onSubmit={handleLogin}>
+        <div>
+          username
+          <input
+            type="text"
+            value={username}
+            name="Username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div>
+          password
+          <input
+            type="password"
+            value={password}
+            name="Password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </div>
+        <button type="submit">login</button>
+      </form>
+    );
+  };
+  const noteForm = () => {
+    return (
+      <form onSubmit={handleSubmit}>
+        <input value={newNote} onChange={handleChange} />
+        <button>Submit</button>
+      </form>
+    );
+  };
   return (
     <>
       <h1 style={myStyle} className="redBackground">
         Notes
       </h1>
       <Notification message={notification} />
+      <h1>login form</h1>
+      {user === null ? loginForm() : noteForm()}
+
       <button onClick={handleShowAll}>
         show {showAll ? "important" : "all"}
       </button>
@@ -106,10 +178,6 @@ const App = (props) => {
           );
         })}
       </ul>
-      <form onSubmit={handleSubmit}>
-        <input value={newNote} onChange={handleChange} />
-        <button>Submit</button>
-      </form>
     </>
   );
 };

@@ -5,10 +5,11 @@ const noHandler = (request, response, next) => {
 }
 const errorHandler = (error, request, response, next) => {
   info(error.message) //consol.error() => info()
-
+  console.log("checking middleware")
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
-  } else if (error.name ==="Validation error") {
+  } else if (error.name === "ValidationError") {
+    console.log("error")
     return response.status(400).send({ error: error.message })
   }
    else if (error.name ===  'JsonWebTokenError') {
