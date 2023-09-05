@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import Note from "./components/Note";
-// import axios from "axios";
 import noteServices from "./services/note";
 import loginServices from "./services/login";
 import Notification from "./components/Notification";
+import Togglable from "./components/Togglable";
+import LoginForm from "./components/LoginForm";
+import NoteForm from "./components/NoteForm";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
@@ -13,6 +15,8 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
+
+  const noteFormRef = useRef();
 
   useEffect(() => {
     console.log("hello");
@@ -26,9 +30,9 @@ const App = () => {
       setNotes(myData);
     });
     //lets get user from local storage if available
-    let myUser = window.localStorage.getItem("noteUser")
+    let myUser = window.localStorage.getItem("noteUser");
     if (myUser) {
-      setUser(JSON.parse(myUser))
+      setUser(JSON.parse(myUser));
     }
 
     console.log(myAxiosPromise);
@@ -43,6 +47,8 @@ const App = () => {
       id: notes.length + 1,
       important: Math.random() > 0.5,
     };
+
+    noteFormRef.current.toggleVisibility;
     let postPromise = noteServices.create(myNote, user.token);
     postPromise
       .then((result) => {
@@ -58,7 +64,7 @@ const App = () => {
         }, 2000);
         if (error.response.data.error === "token expired") {
           setUser(null);
-          window.localStorage.removeItem("noteUser")
+          window.localStorage.removeItem("noteUser");
         }
       });
   };
@@ -109,7 +115,7 @@ const App = () => {
     try {
       let loggedinUser = await loginServices.login({ username, password });
       setUser(loggedinUser);
-      window.localStorage.setItem("noteUser",JSON.stringify(loggedinUser))
+      window.localStorage.setItem("noteUser", JSON.stringify(loggedinUser));
     } catch (error) {
       setNotification(error.response.data.error);
       setTimeout(() => {
@@ -122,35 +128,26 @@ const App = () => {
 
   const loginForm = () => {
     return (
-      <form onSubmit={handleLogin}>
-        <div>
-          username
-          <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-          password
-          <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type="submit">login</button>
-      </form>
+      <Togglable buttonLabel="login">
+        <LoginForm
+          username={username}
+          password={password}
+          handleUsernameChange={({ target }) => setUsername(target.value)}
+          handlePasswordChange={({ target }) => setPassword(target.value)}
+          handleSubmit={handleLogin}
+        />
+      </Togglable>
     );
   };
   const noteForm = () => {
     return (
-      <form onSubmit={handleSubmit}>
-        <input value={newNote} onChange={handleChange} />
-        <button>Submit</button>
-      </form>
+      <Togglable buttonLabel="new note" ref={noteFormRef}>
+        <NoteForm
+          onSubmit={handleSubmit}
+          value={newNote}
+          handleChange={handleChange}
+        />
+      </Togglable>
     );
   };
   return (
