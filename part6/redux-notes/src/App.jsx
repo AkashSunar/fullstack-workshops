@@ -1,37 +1,17 @@
-import { useState } from "react";
+// import { useState } from "react";
 import NoteForm from "./components/NoteForm";
 import Note from "./components/Notes";
+import VisinilityFilter from "./components/VisibilityFilter";
+
 
 const App = () => {
-  const [filter, setFilter] = useState("ALL");
-  const filterSelected = (filter) => {
-    setFilter(filter);
-  };
+  // const [filter, setFilter] = useState("ALL");
 
   return (
     <div>
-      <div>
-        all{" "}
-        <input
-          type="radio"
-          name="filter"
-          onChange={() => filterSelected("ALL")}
-        />
-        important{" "}
-        <input
-          type="radio"
-          name="filter"
-          onChange={() => filterSelected("IMPORTANT")}
-        />
-        nonimportant{" "}
-        <input
-          type="radio"
-          name="filter"
-          onChange={() => filterSelected("NONIMPORTANT")}
-        />
-      </div>
+      <VisinilityFilter />
       <NoteForm />
-      <Note filter={filter} />
+      <Note />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { createNote } from "../reducers/noteReducer";
 const NoteForm = () => {
     const dispatch = useDispatch();
-  const notes = useSelector((state) => state);
+  const notes = useSelector((state) => state.notes);
   const addNote = (event) => {
     event.preventDefault();
     const newNote = {
