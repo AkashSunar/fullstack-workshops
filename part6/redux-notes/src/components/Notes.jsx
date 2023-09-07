@@ -1,9 +1,28 @@
-import {toggleImportantOf } from "../reducers/noteReducer";
+import { toggleImportantOf } from "../reducers/noteReducer";
 import { useSelector, useDispatch } from "react-redux";
-const Note = () => {
+const Note = ({ filter }) => {
   const dispatch = useDispatch();
   const notes = useSelector((state) => {
-    return state;
+    if (filter === "ALL") {
+      return state;
+    }
+    // if (filter === "IMPORTANT") {
+    //   return state.filter((note) => {
+    //     if (note.important===true) {
+    //       return true;
+    //     }
+    //   });
+    // }
+    // if (filter === "NONIMPORTANT") {
+    //   return state.filter((note) => {
+    //     if (note.important===false) {
+    //       return true;
+    //     }
+    //   });
+    // }
+    return filter === "IMPORTANT"
+      ? state.filter((note) => note.important)
+      : state.filter((note) => !note.important);
   });
 
   const toggleImportant = (id) => {
