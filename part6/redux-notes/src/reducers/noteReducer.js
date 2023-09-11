@@ -1,21 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const initialState = [
-  {
-    content: "reducer defines how redux store works",
-    important: true,
-    id: 1,
-  },
-  {
-    content: "state of store can contain any data",
-    important: false,
-    id: 2,
-  },
-];
+import notesServices from "../services/notes";
 
 const noteReducer = createSlice({
   name: "notes",
-  initialState,
+  initialState: [],
   reducers: {
     createNote(state, action) {
       const newState = state.concat(action.payload);
@@ -32,6 +20,14 @@ const noteReducer = createSlice({
     },
   },
 });
+
+const { createNote, toggleImportantOf } = noteReducer.actions;
+// const makeNote = (newNote) => {
+//   return async (dispatch) => {
+//     const myNote = notesServices.createNew(newNote);
+//     dispatch(createNote(newNote))
+//   }
+// }
 
 // const noteReducer = (state = initialState, action) => {
 //   switch (action.type) {
@@ -65,6 +61,5 @@ const noteReducer = createSlice({
 //     },
 //   };
 // };
-const { createNote, toggleImportantOf } = noteReducer.actions;
 export { createNote, toggleImportantOf };
 export default noteReducer.reducer;
