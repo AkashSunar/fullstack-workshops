@@ -1,7 +1,7 @@
 import { filterChange } from "../reducers/filterReducer";
 import { useSelector, useDispatch } from "react-redux";
 
-const VisinilityFilter = () => {
+const VisibilityFilter = () => {
   const dispatch = useDispatch();
   const filterSelected = (filter) => {
     // setFilter(filter);
@@ -34,4 +34,4 @@ const VisinilityFilter = () => {
     </div>
   );
 };
-export default VisinilityFilter;
+export default VisibilityFilter;

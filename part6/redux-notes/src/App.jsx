@@ -1,7 +1,7 @@
 // import { useState } from "react";
 import NoteForm from "./components/NoteForm";
 import Note from "./components/Notes";
-import VisinilityFilter from "./components/VisibilityFilter";
+import VisibilityFilter from "./components/VisibilityFilter";
 
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
 
   return (
     <div>
-      <VisinilityFilter />
+      <VisibilityFilter />
       <NoteForm />
       <Note />
     </div>
