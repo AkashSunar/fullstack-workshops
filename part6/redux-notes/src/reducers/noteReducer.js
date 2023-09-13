@@ -22,12 +22,12 @@ const noteReducer = createSlice({
 });
 
 const { createNote, toggleImportantOf } = noteReducer.actions;
-// const makeNote = (newNote) => {
-//   return async (dispatch) => {
-//     const myNote = notesServices.createNew(newNote);
-//     dispatch(createNote(newNote))
-//   }
-// }
+const makeNote = (newNote) => {
+  return async (dispatch) => {
+    const myNote = notesServices.createNew(newNote);
+    dispatch(createNote(newNote))
+  }
+}
 
 // const noteReducer = (state = initialState, action) => {
 //   switch (action.type) {
@@ -61,5 +61,5 @@ const { createNote, toggleImportantOf } = noteReducer.actions;
 //     },
 //   };
 // };
-export { createNote, toggleImportantOf };
+export { createNote, toggleImportantOf,makeNote };
 export default noteReducer.reducer;

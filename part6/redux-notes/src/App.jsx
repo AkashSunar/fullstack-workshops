@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { createNote } from "./reducers/noteReducer";
 import services from "./services/notes";
 
+
 const App = () => {
   // const [filter, setFilter] = useState("ALL");
   const dispatch = useDispatch();
