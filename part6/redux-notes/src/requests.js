@@ -5,8 +5,9 @@ export const getNotes = () =>
     return res.data;
   });
 
-export const createNote = (newNote) => {
-  axios.post(baseUrl, newNote).then((res) => res.data);
+export const createNote =async (newNote) => {
+   const response=await axios.post(baseUrl, newNote)
+    return response.data
 };
 
 export const updateNote = (updatedNote) =>
