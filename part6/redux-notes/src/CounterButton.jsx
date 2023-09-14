@@ -1,4 +1,7 @@
+import { useContext } from "react";
+import CounterContext from "./counterContext";
 const CounterButton = (props) => {
-  return <button onClick={props.clickAction}>{props.label}</button>;
+   const [counter, dispatch] = useContext(CounterContext);
+  return <button onClick={()=>{dispatch({type:props.type})}}>{props.label}</button>;
 };
 export default CounterButton;
