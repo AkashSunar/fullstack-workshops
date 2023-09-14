@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 // import { createStore, combineReducers } from "redux";
-import App from "./reactQueryApp";
+import App from "./counterApp";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import { Provider } from "react-redux";
 // import store from "./store";
