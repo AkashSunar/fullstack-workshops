@@ -6,7 +6,7 @@ const App = () => {
   const result = useQuery({
     queryKey: ["notes"],
     queryFn: getNotes,
-    refetchOnWindowFocus: false, 
+    refetchOnWindowFocus: false,
   });
 
   const newNoteMutation = useMutation(createNote, {
@@ -34,8 +34,6 @@ const App = () => {
     console.log("toggle importance of", note.id);
     updateNoteMutation.mutate({ ...note, important: !note.important });
   };
-
-  //   console.log(JSON.parse(JSON.stringify(result)));
 
   if (result.isLoading) {
     return <div>loading data...</div>;

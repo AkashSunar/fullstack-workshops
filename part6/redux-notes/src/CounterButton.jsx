@@ -1,7 +1,16 @@
 import { useContext } from "react";
-import CounterContext from "./counterContext";
+import { useCounterDispatch } from "./CounterContext";
 const CounterButton = (props) => {
-   const [counter, dispatch] = useContext(CounterContext);
-  return <button onClick={()=>{dispatch({type:props.type})}}>{props.label}</button>;
+  const dispatch = useCounterDispatch();
+
+  return (
+    <button
+      onClick={() => {
+        dispatch({ type: props.type });
+      }}
+    >
+      {props.label}
+    </button>
+  );
 };
 export default CounterButton;
