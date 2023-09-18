@@ -2,33 +2,20 @@ import useField from "./hooks/useField";
 const App = () => {
   const name = useField("text");
   const born = useField("date");
-    const height = useField("number");
-    console.log(name);
-
+  const height = useField("number");
 
   return (
     <div>
       <form>
         name:
-        <input
-          type={name.type}
-          value={name.value}
-          //   onChange={handleChange}
-          onChange={name.onChange}
-        />
+              <input {...name} />
         <br />
         birthdate:
-        <input
-          type={born.type}
-          value={born.value}
-          onChange={born.onChange}
-        />
+        <input{...born} />
         <br />
         height:
         <input
-          type={height.type}
-          value={height.value}
-          onChange={height.onChange}
+        {...height}
         />
       </form>
       <div>
