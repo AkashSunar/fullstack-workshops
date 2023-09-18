@@ -1,40 +1,38 @@
-import { useState } from "react";
+import useField from "./hooks/useField";
 const App = () => {
-  const [name, setName] = useState("");
-  const [born, setBorn] = useState("");
-  const [height, setHeight] = useState("");
+  const name = useField("text");
+  const born = useField("date");
+    const height = useField("number");
+    console.log(name);
 
-  //   const handleChange = (event) => {
-  //       setName(event.target.value);
-  //       console.log(event.target.value)
-  //   };
+
   return (
     <div>
       <form>
         name:
         <input
-          type="text"
-          value={name}
+          type={name.type}
+          value={name.value}
           //   onChange={handleChange}
-          onChange={(event) => setName(event.target.value)}
+          onChange={name.onChange}
         />
         <br />
         birthdate:
         <input
-          type="date"
-          value={born}
-          onChange={(event) => setBorn(event.target.value)}
+          type={born.type}
+          value={born.value}
+          onChange={born.onChange}
         />
         <br />
         height:
         <input
-          type="number"
-          value={height}
-          onChange={(event) => setHeight(event.target.value)}
+          type={height.type}
+          value={height.value}
+          onChange={height.onChange}
         />
       </form>
       <div>
-        {name} {born} {height}
+        {name.value} {born.value} {height.value}
       </div>
     </div>
   );
