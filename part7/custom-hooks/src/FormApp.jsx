@@ -8,15 +8,13 @@ const App = () => {
     <div>
       <form>
         name:
-              <input {...name} />
+        <input {...name} />
         <br />
         birthdate:
-        <input{...born} />
+        <input {...born} />
         <br />
         height:
-        <input
-        {...height}
-        />
+        <input {...height} />
       </form>
       <div>
         {name.value} {born.value} {height.value}

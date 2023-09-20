@@ -12,8 +12,8 @@ const counterReducer = (state, action) => {
       return state;
   }
 };
-
 const CounterContext = createContext();
+
 
 export const useCounterValue = () => {
   const counterAndDispatch = useContext(CounterContext);

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { createNote, makeNote } from "../reducers/noteReducer";
+import { makeNote } from "../reducers/noteReducer";
 
 const NoteForm = () => {
   const dispatch = useDispatch();

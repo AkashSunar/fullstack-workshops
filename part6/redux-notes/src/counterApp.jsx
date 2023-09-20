@@ -1,8 +1,11 @@
 import CounterButton from "./CounterButton";
 import { useCounterValue } from "./CounterContext";
+import CounterContext from "./CounterContext";
+import { useContext } from "react";
 
 const App = () => {
   const counter = useCounterValue();
+  // const [counter, dispatch] = useContext(CounterContext);
   return (
     <div>
       <div>{counter}</div>
