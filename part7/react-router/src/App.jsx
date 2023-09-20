@@ -4,7 +4,7 @@ import Note from "./Note";
 import Login from "./Login";
 import { useState } from "react";
 // import { Nav, Navbar } from "react-bootstrap";
-import { Container,Alert,AppBar,Toolbar,IconButton,Button } from "@mui/material";
+import { Container,AppBar,Toolbar,Button } from "@mui/material";
 const notes = [
   {
     content: "the app state is in redux store",
