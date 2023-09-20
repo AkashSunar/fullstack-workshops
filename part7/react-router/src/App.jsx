@@ -3,7 +3,8 @@ import Notes from "./Notes";
 import Note from "./Note";
 import Login from "./Login";
 import { useState } from "react";
-import { Alert, Nav, Navbar } from "react-bootstrap";
+// import { Nav, Navbar } from "react-bootstrap";
+import { Container,Alert,AppBar,Toolbar,IconButton,Button } from "@mui/material";
 const notes = [
   {
     content: "the app state is in redux store",
@@ -45,39 +46,27 @@ const App = () => {
   };
 
   return (
-    <div className="container">
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#" as="span">
-              <Link style={padding} to="/">
-                home
-              </Link>
-            </Nav.Link>
-            <Nav.Link href="#" as="span">
-              <Link style={padding} to="/notes">
-                notes
-              </Link>
-            </Nav.Link>
-            <Nav.Link href="#" as="span">
-              <Link style={padding} to="/users">
-                users
-              </Link>
-            </Nav.Link>
-            <Nav.Link href="#" as="span">
-              {user ? (
-                <em style={padding}>{user} logged in</em>
-              ) : (
-                <Link style={padding} to="/login">
-                  login
-                </Link>
-              )}
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-
+    <Container>
+      <AppBar position="static">
+        <Toolbar>
+          <Button color="inherit" component={Link} to="/">
+            home
+          </Button>
+          <Button color="inherit" component={Link} to="/notes">
+            notes
+          </Button>
+          <Button color="inherit" component={Link} to="/users">
+            users
+          </Button>
+          {user ? (
+            <em>{user} logged in</em>
+          ) : (
+            <Button color="inherit" component={Link} to="/login">
+              login
+            </Button>
+          )}
+        </Toolbar>
+      </AppBar>
       <Routes>
         <Route path="/notes/:id" element={<Note note={note} />} />
         <Route path="/notes" element={<Notes notes={notes} />} />
@@ -92,7 +81,7 @@ const App = () => {
       <div>
         <i>Note app, Department of Computer Science 2023</i>
       </div>
-    </div>
+    </Container>
   );
 };
 export default App;
