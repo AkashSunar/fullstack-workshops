@@ -57,7 +57,7 @@ const App = () => {
           Home
         </Link>
         <Link style={padding} to="/notes">
-          Hotes
+          Notes
         </Link>
         <Link style={padding} to="/users">
           Users
