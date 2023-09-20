@@ -4,7 +4,8 @@ import Note from "./Note";
 import Login from "./Login";
 import { useState } from "react";
 // import { Nav, Navbar } from "react-bootstrap";
-import { Container,AppBar,Toolbar,Button } from "@mui/material";
+// import { Container,AppBar,Toolbar,Button } from "@mui/material";
+import { Navigation,Footer,Page} from "./components/Button";
 const notes = [
   {
     content: "the app state is in redux store",
@@ -42,46 +43,48 @@ const App = () => {
   const match = useMatch("/notes/:id");
   const note = match ? notes.find((note) => note.id == match.params.id) : null;
   const padding = {
-    padding: 5,
+    padding: 15,
+    fontSize: "20px",
+    fontWeight: "bold",
+    color: "black",
+    textDecoration:"none"
   };
 
   return (
-    <Container>
-      <AppBar position="static">
-        <Toolbar>
-          <Button color="inherit" component={Link} to="/">
-            home
-          </Button>
-          <Button color="inherit" component={Link} to="/notes">
-            notes
-          </Button>
-          <Button color="inherit" component={Link} to="/users">
-            users
-          </Button>
-          {user ? (
-            <em>{user} logged in</em>
-          ) : (
-            <Button color="inherit" component={Link} to="/login">
-              login
-            </Button>
-          )}
-        </Toolbar>
-      </AppBar>
+    <Page>
+      <Navigation>
+        <Link style={padding} to="/">
+          Home
+        </Link>
+        <Link style={padding} to="/notes">
+          Hotes
+        </Link>
+        <Link style={padding} to="/users">
+          Users
+        </Link>
+        {user ? (
+          <em>{user} logged in</em>
+        ) : (
+          <Link style={padding} to="/login">
+            Login
+          </Link>
+        )}
+      </Navigation>
       <Routes>
         <Route path="/notes/:id" element={<Note note={note} />} />
         <Route path="/notes" element={<Notes notes={notes} />} />
-        <Route path="/login" element={<Login setUser={setUser} />} />
         <Route
           path="/users"
           element={user ? <Users /> : <Navigate replace to="/login" />}
         />
+        <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/" element={<Home />} />
       </Routes>
 
-      <div>
-        <i>Note app, Department of Computer Science 2023</i>
-      </div>
-    </Container>
+      <Footer>
+        <em>Note app, Department of Computer Science 2022</em>
+      </Footer>
+    </Page>
   );
 };
 export default App;
