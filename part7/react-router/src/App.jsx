@@ -13,12 +13,12 @@ const notes = [
     id: 1,
   },
   {
-    content: "helo",
+    content: "this is important note",
     important: true,
     id: 2,
   },
   {
-    content: "kkkkk",
+    content: "hey, you look beautiful in smile",
     important: true,
     id: 3,
   },
