@@ -1,5 +1,5 @@
 const app = require("express").Router(); 
-const { Note } = require("../models/index")
+const { Note,User } = require("../models/index")
 const jwt = require('jsonwebtoken')
 
 
@@ -26,7 +26,13 @@ const tokenExtractor = (req, res, next) => {
 
 app.get('/', async (req, res) => {
     //   const notes = await sequelize.query("SELECT * FROM notes", { type: QueryTypes.SELECT })
-     const notes = await Note.findAll()
+     const notes = await Note.findAll({
+    attributes: { exclude: ['userId'] },
+    include: {
+      model: User,
+      attributes: ['name']
+    }
+  })
   res.json(notes)
 })
 
