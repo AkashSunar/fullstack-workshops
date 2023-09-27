@@ -1,40 +1,6 @@
-require('dotenv').config();
 const app = require("express").Router(); 
-const { Sequelize, Model, DataTypes } = require('sequelize')
+const {Note}=require("../models/index")
 
-const sequelize = new Sequelize(process.env.DB_URL, {
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false
-    }
-  },
-});
-class Note extends Model {}
-Note.init({
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  content: {
-    type: DataTypes.TEXT,
-    allowNull: false
-  },
-  important: {
-    type: DataTypes.BOOLEAN
-  },
-  date: {
-    type: DataTypes.DATE
-  }
-}, {
-  sequelize,
-  underscored: true,
-  timestamps: false,
-  modelName: 'note'
-})
-
-Note.sync();
 app.get('/', async (req, res) => {
     //   const notes = await sequelize.query("SELECT * FROM notes", { type: QueryTypes.SELECT })
      const notes = await Note.findAll()
@@ -48,7 +14,8 @@ app.post('/', async (req, res) => {
 
 app.get('/:id', async (req, res) => {
     const note = await Note.findByPk(req.params.id)
-   if (note) {
+   
+if (note) {
     res.json(note)
   } else {
     res.status(404).send("no data found")
