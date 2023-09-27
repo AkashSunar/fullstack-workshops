@@ -1,10 +1,18 @@
 POST http://localhost:3001/api/notes/
 content-type: application/json
+authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFrYXNoIiwiaWQiOjE2LCJpYXQiOjE2OTU4MTMzNDN9.iT-bnpedPdLoirJn3PXQKytnwwn00NP-XNxHgfxAmpU
 
 { 
-    "content": "hi everyone",
+    "content": "the horror",
     "important":true
-    
+}
+###
+POST http://localhost:3001/api/users/
+content-type: application/json
+
+{ 
+    "username":"akash",
+    "name":"akash sunar"
 }
 
 ###
@@ -12,6 +20,14 @@ PUT http://localhost:3001/api/notes/2
 content-type: application/json
 
 {
-    "important":false
-    
+    "important":true
+}
+
+###
+POST http://localhost:3001/api/login/
+content-type: application/json
+
+{ 
+    "username":"akash",
+    "password":"akash"
 }
