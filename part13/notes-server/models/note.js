@@ -1,13 +1,6 @@
-require('dotenv').config();
-const { Sequelize, Model, DataTypes } = require('sequelize')
-const sequelize = new Sequelize(process.env.DB_URL, {
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false
-    }
-  },
-});
+const { sequelize } = require("../utils/db")
+const { Model, DataTypes } = require('sequelize')
+
 class Note extends Model {}
 Note.init({
   id: {

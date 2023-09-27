@@ -12,6 +12,6 @@ PUT http://localhost:3001/api/notes/2
 content-type: application/json
 
 {
-    "important":true
+    "important":false
     
 }

@@ -1,5 +1,10 @@
 const app = require("express").Router(); 
-const {Note}=require("../models/index")
+const { Note } = require("../models/index")
+
+const noteFinder = async (req, res, next) => {
+  req.note = await Note.findByPk(req.params.id)
+  next()
+}
 
 app.get('/', async (req, res) => {
     //   const notes = await sequelize.query("SELECT * FROM notes", { type: QueryTypes.SELECT })
@@ -12,23 +17,23 @@ app.post('/', async (req, res) => {
   res.json(note)
 })
 
-app.get('/:id', async (req, res) => {
-    const note = await Note.findByPk(req.params.id)
+app.get('/:id',noteFinder, async (req, res) => {
+    // const note = await Note.findByPk(req.params.id)
    
-if (note) {
-    res.json(note)
+if (req.note) {
+    res.json(req.note)
   } else {
     res.status(404).send("no data found")
   }
 })
 
-app.put('/:id', async (req, res) => {
-  const note = await Note.findByPk(req.params.id)
+app.put('/:id',noteFinder,async (req, res) => {
+//   const note = await Note.findByPk(req.params.id)
 
-  if (note) {
-    note.important = req.body.important
-    await note.save()
-    res.json(note)
+  if (req.note) {
+    req.note.important = req.body.important
+    await req.note.save()
+    res.json(req.note)
   } else {
     res.status(404).end()
   }
