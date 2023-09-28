@@ -26,8 +26,8 @@ const tokenExtractor = (req, res, next) => {
 
 app.get('/', async (req, res) => {
   //   const notes = await sequelize.query("SELECT * FROM notes", { type: QueryTypes.SELECT })
-  console.log('query param is  imp', req.query.important)
-  console.log('query param is class', req.query.class)
+  // console.log('query param is  imp', req.query.important)
+  // console.log('query param is class', req.query.class)
     let important = {
     [Op.in]: [true, false]
   }
