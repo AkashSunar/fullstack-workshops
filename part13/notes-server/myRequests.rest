@@ -3,8 +3,8 @@ content-type: application/json
 authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFrYXNoIiwiaWQiOjE2LCJpYXQiOjE2OTU4MTMzNDN9.iT-bnpedPdLoirJn3PXQKytnwwn00NP-XNxHgfxAmpU
 
 { 
-    "content": "the horror",
-    "important":true
+    "content": "lets go mardi trek",
+    "important":false
 }
 ###
 POST http://localhost:3001/api/users/
@@ -16,11 +16,11 @@ content-type: application/json
 }
 
 ###
-PUT http://localhost:3001/api/notes/2
+PUT http://localhost:3001/api/notes/8
 content-type: application/json
 
 {
-    "important":true
+    "important":false
 }
 
 ###
