@@ -1,9 +1,9 @@
 POST http://localhost:3001/api/notes/
 content-type: application/json
-authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFrYXNoIiwiaWQiOjE2LCJpYXQiOjE2OTU4MTMzNDN9.iT-bnpedPdLoirJn3PXQKytnwwn00NP-XNxHgfxAmpU
+authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFrYXNoIiwiaWQiOjEsImlhdCI6MTY5NjIzNDY2NX0.79ifMDvJmeZB2uB8L6OJ460gGB7eOQAxh5EK8obQbGI
 
 { 
-    "content": "lets go mardi trek",
+    "content": "lets go mardi trek4",
     "important":false
 }
 ###
@@ -11,7 +11,7 @@ POST http://localhost:3001/api/users/
 content-type: application/json
 
 { 
-    "username":"akash",
+    "username":"akash4",
     "name":"akash sunar"
 }
 
@@ -31,3 +31,14 @@ content-type: application/json
     "username":"akash",
     "password":"akash"
 }
+
+###
+PUT http://localhost:3001/api/users/akash4
+content-type: application/json
+authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFrYXNoIiwiaWQiOjEsImlhdCI6MTY5NjI0MzI2M30.klGHuvWNT9qxpR4zhztf5ywS8yh0bBMZTI0talp7mRY
+
+{ 
+    "disabled":false
+}
+
+

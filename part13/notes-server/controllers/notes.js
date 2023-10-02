@@ -1,28 +1,14 @@
 const app = require("express").Router(); 
 const { Note,User } = require("../models/index")
-const jwt = require('jsonwebtoken')
 const { Op } = require('sequelize')
-
-const { SECRET } = require("../utils/config")
+const {tokenExtractor}= require("../utils/middleware")
 
 const noteFinder = async (req, res, next) => {
   req.note = await Note.findByPk(req.params.id)
   console.log(req.note,"checking")
   next()
 }
-const tokenExtractor = (req, res, next) => {
-  const authorization = req.get('authorization')
-  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    try {
-      req.decodedToken = jwt.verify(authorization.substring(7), SECRET)
-    } catch{
-      return res.status(401).json({ error: 'token invalid' })
-    }
-  }  else {
-    return res.status(401).json({ error: 'token missing' })
-  }
-  next()
-}
+
 
 app.get('/', async (req, res) => {
   //   const notes = await sequelize.query("SELECT * FROM notes", { type: QueryTypes.SELECT })
