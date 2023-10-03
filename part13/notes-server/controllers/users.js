@@ -31,21 +31,42 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const user = await User.findByPk(req.params.id, {
-    include: {
-      model: Note
-    }
+    include: [{
+      model: Note,
+      attributes:{exclude:["user_id"]}
+    },
+     {
+        model: Note,
+        as: 'marked_notes',
+        attributes: { exclude: ['userId']},
+        through: {
+          attributes: []
+       },
+        include: {
+          model: User,
+          attributes: ['name']
+        }
+
+      },
+    {
+        model: Team,
+        attributes: ['name', 'id'],
+        through: {
+          attributes: []
+        }
+      },]
   })
   if (user) {
    {/*  user.notes.forEach(note => {
   console.log(note.content)
 })*/}
     res.json(
-      // user
-      {
-      username: user.username,
-      name: user.name,
-      note_count: user.notes.length
-    }
+      user
+    //   {
+    //   username: user.username,
+    //   name: user.name,
+    //   note_count: user.notes.length
+    // }
     )
   } else {
     res.status(404).end()
