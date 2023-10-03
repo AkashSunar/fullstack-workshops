@@ -4,6 +4,7 @@ const { User,Note,Team} = require('../models')
 
 router.get('/', async (req, res) => {
   const users = await User.findAll(
+    /*User.scope('disabled')-->gives users checking disabled*/    
     {
     include: [{
       model: Note,
@@ -17,7 +18,8 @@ router.get('/', async (req, res) => {
       }]
   }
   )
-  res.json(users)
+  let usersWithNotes=await User.with_notes(0)
+  res.json({...users,usersWithNotes})
 })
 
 router.post('/', async (req, res) => {
@@ -60,14 +62,15 @@ router.get('/:id', async (req, res) => {
    {/*  user.notes.forEach(note => {
   console.log(note.content)
 })*/}
-    res.json(
-      user
-    //   {
-    //   username: user.username,
-    //   name: user.name,
-    //   note_count: user.notes.length
-    // }
-    )
+ let teams = undefined
+  if (req.query.teams==="true") {
+    teams = await user.getTeams({
+      attributes: ['name'],
+      joinTableAttributes: []  
+    })
+  }
+    let notesNumber= await user.number_of_notes()
+    res.json({ ...user.toJSON(),notesNumber,teams })
   } else {
     res.status(404).end()
   }
