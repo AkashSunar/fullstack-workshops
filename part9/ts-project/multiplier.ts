@@ -1,7 +1,7 @@
-type Operation = 'multiply' | 'add' | 'divide';
+export type Operation = 'multiply' | 'add' | 'divide';
 type result= number|string
 
-const calculator = (a: number, b: number, op: Operation):result => {
+export const calculator = (a: number, b: number, op: Operation):result => {
   if (op === 'multiply') {
     return a * b;
   } else if (op === 'add') {
@@ -16,7 +16,7 @@ const calculator = (a: number, b: number, op: Operation):result => {
   return "invalid operation"
 };
 try {
-  console.log("the result is",calculator(2, 0, 'divide'))
+  console.log("the result is",calculator(8,4, 'divide'))
   }
 catch (e: unknown) {
   if (e instanceof Error) {
