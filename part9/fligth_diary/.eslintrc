@@ -25,6 +25,8 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "tsconfig.json",
+    "tsconfigRootDir": "./part9/fligth_diary",
+    "sourceType": "module"
   }
 }
